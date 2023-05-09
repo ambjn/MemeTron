@@ -1,11 +1,12 @@
 import { View, Text } from 'react-native'
 import React from 'react'
+import { Center, Heading } from 'native-base'
 
 const AboutScreen = () => {
   return (
-    <View>
-      <Text>AboutScreen</Text>
-    </View>
+    <Center>
+      <Heading>AboutScreen</Heading>
+    </Center>
   )
 }
 
