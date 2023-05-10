@@ -17,20 +17,20 @@ export interface Meme {
 export const useApi = () => {
     const getTrending = async (): Promise<TrendingMeme[]> => {
         // use the below for development-process so as not to blow up limited api quota
-        // return new Promise((resolve, reject) => {
-        //     setTimeout(() => {
-        //         resolve(trending)
-        //     }, 1000);
-        // });
-
-        const result = await axios.get("https://reddit-meme.p.rapidapi.com/memes/trending", {
-            headers: {
-                'X-RapidAPI-Key': RAPID_API_KEY,
-                'X-RapidAPI-Host': 'reddit-meme.p.rapidapi.com'
-            }
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(trending)
+            }, 1000);
         });
-        console.log(result);
-        return result.data;
+
+        // const result = await axios.get("https://reddit-meme.p.rapidapi.com/memes/trending", {
+        //     headers: {
+        //         'X-RapidAPI-Key': RAPID_API_KEY,
+        //         'X-RapidAPI-Host': 'reddit-meme.p.rapidapi.com'
+        //     }
+        // });
+        // console.log(result);
+        // return result.data;
     }
     return { getTrending };
 }
