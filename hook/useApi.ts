@@ -35,14 +35,25 @@ export const useApi = () => {
     }
     const getMemes = async (): Promise<Meme[]> => {
         return new Promise((resolve, reject) => {
-            let result:Meme[] = [];
+            let result: Meme[] = [];
             Object.entries(memes).forEach(([key, value]) => {
                 result.push({ name: key, image: value })
             })
             resolve(result);
         });
     }
-    return { getTrending, getMemes };
+
+    const createMeme = async (top: string, bottom: string, meme: string): Promise<any> => {
+        return new Promise((resolve, reject) => {
+            setTimeout(async () => {
+                const response = await axios.get(`https://upload.wikimedia.org/wikipedia/commons/b/b4/JPEG_example_JPG_RIP_100.jpg`,
+                    { responseType: 'blob' })
+                resolve(response);
+            }, 2000);
+        });
+    }
+
+    return { getTrending, getMemes, createMeme };
 }
 
 
