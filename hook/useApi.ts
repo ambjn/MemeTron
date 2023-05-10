@@ -2,6 +2,7 @@ import trending from '../assets/trending.json';
 import { RAPID_API_KEY } from "@env";
 
 import axios from 'axios'
+import { memes } from '../assets/list';
 
 
 export interface TrendingMeme {
@@ -32,7 +33,16 @@ export const useApi = () => {
         // console.log(result);
         // return result.data;
     }
-    return { getTrending };
+    const getMemes = async (): Promise<Meme[]> => {
+        return new Promise((resolve, reject) => {
+            let result:Meme[] = [];
+            Object.entries(memes).forEach(([key, value]) => {
+                result.push({ name: key, image: value })
+            })
+            resolve(result);
+        });
+    }
+    return { getTrending, getMemes };
 }
 
 
