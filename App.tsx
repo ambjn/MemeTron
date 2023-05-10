@@ -96,8 +96,17 @@ export default function App() {
               name='Home'
               component={HomeScreen}
               options={{
-                headerTitleAlign:"center",
+                headerTitleAlign: "center",
                 title: "Trending Memes",
+                ...headerStyle,
+              }}
+            />
+
+            <Drawer.Screen
+              name='Creator'
+              component={CreatorScreen}
+              options={{
+                title: "Meme Generator",
                 ...headerStyle,
               }}
             />
@@ -106,14 +115,6 @@ export default function App() {
               component={AboutScreen}
               options={{
                 title: "MemeTron",
-                ...headerStyle,
-              }}
-            />
-            <Drawer.Screen
-              name='Creator'
-              component={CreatorScreen}
-              options={{
-                title: "About MemeTron",
                 ...headerStyle,
               }}
             />

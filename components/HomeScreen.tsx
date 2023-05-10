@@ -1,9 +1,24 @@
 import { View, Text, StyleSheet, Image } from "react-native";
 import { useEffect, useState } from "react";
-import { TrendingMeme, useApi } from "../hook/useApi";
-import { Center, ScrollView, Skeleton, VStack, Heading, useTheme, theme,  } from "native-base";
+import { Meme, TrendingMeme, useApi } from "../hook/useApi";
+import {
+  Center,
+  ScrollView,
+  Skeleton,
+  VStack,
+  Heading,
+  useTheme,
+  theme,
+  Container,
+} from "native-base";
 import Swiper from "react-native-swiper";
-const HomeScreen = () => {
+import MemeSelector from "./MemeSelector";
+import { NavigationProp } from "@react-navigation/native";
+
+interface RouterProps {
+  navigation: NavigationProp<any, any>;
+}
+const HomeScreen = (props: RouterProps) => {
   const theme = useTheme();
   const { getTrending } = useApi();
   const [memes, setMemes] = useState<TrendingMeme[] | null>(null);
@@ -17,6 +32,10 @@ const HomeScreen = () => {
     };
     loadMemes();
   }, []);
+
+  const memeSelected = (meme: Meme) => {
+    props.navigation.navigate("Creator", { meme: meme.name });
+  };
 
   return (
     <ScrollView>
@@ -37,20 +56,26 @@ const HomeScreen = () => {
             <View key={index}>
               <VStack alignItems={"center"} space={4} mt={5}>
                 <Heading style={styles.text}>{meme.title}</Heading>
-                <Image 
-                style={{ width: "90%", height: 300}}
-                resizeMode="contain"
-                source={{uri:meme.url}}/>
+                <Image
+                  style={{ width: "90%", height: 300 }}
+                  resizeMode='contain'
+                  source={{ uri: meme.url }}
+                />
               </VStack>
             </View>
           ))}
         </Swiper>
       )}
+        <MemeSelector
+          onSelect={(meme) => {
+            memeSelected(meme);
+          }}
+        />
     </ScrollView>
   );
 };
 const styles = StyleSheet.create({
-  wrapper: {height:400},
+  wrapper: { height: 400 },
   text: {
     color: theme.colors.primary[500],
     fontSize: 30,
